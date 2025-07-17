@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %} Formulario {% endblock %}
+
+{% block content %}
+<div class="card card-primary">
+  <div class="card-header">
+    <h3 class="card-title">Encontrar la Ruta más Corta</h3>
+  </div>
+  <form method="post">
+    <div class="card-body">
+      <div class="form-group">
+        <label for="origen">Ciudad de Origen</label>
+        <select name="origen" id="origen" class="form-control" required>
+          {% for ciudad in ciudades %}
+            <option value="{{ ciudad }}"
+              {% if request.form.origen == ciudad %}selected{% endif %}>
+              {{ ciudad }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="destino">Ciudad de Destino</label>
+        <select name="destino" id="destino" class="form-control" required>
+          {% for ciudad in ciudades %}
+            <option value="{{ ciudad }}"
+              {% if request.form.destino == ciudad %}selected{% endif %}>
+              {{ ciudad }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+    <div class="card-footer">
+      <button type="submit" class="btn btn-primary">Calcular</button>
+    </div>
+  </form>
+</div>
+
+{% if resultado %}
+<div class="alert alert-info mt-4">
+  <h5><i class="icon fas fa-route"></i> Resultado</h5>
+  <p><strong>Ruta:</strong> {{ resultado.camino | join(" → ") }}</p>
+  <p><strong>Costo Total:</strong> ${{ resultado.costo }}</p>
+  {% if resultado.valido %}
+    <div class="alert alert-success mt-2"><i class="fas fa-check-circle"></i> La ruta incluye una ciudad costera.</div>
+  {% else %}
+    <div class="alert alert-danger mt-2"><i class="fas fa-times-circle"></i> La ruta NO incluye ninguna ciudad costera.</div>
+  {% endif %}
+</div>
+{% endif %}
+{% endblock %}

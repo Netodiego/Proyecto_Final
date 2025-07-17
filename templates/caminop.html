@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %} Camino Predeterminado {%endblock %}
+
+{% block content %}
+<div class="card card-info">
+  <div class="card-header">
+    <h3 class="card-title">Ruta Predeterminada: Ibarra → Loja</h3>
+  </div>
+  <div class="card-body">
+    {% if resultado.camino %}
+      <p><strong>Ruta:</strong> {{ resultado.camino | join(" → ") }}</p>
+      <p><strong>Costo Total:</strong> ${{ resultado.costo }}</p>
+      {% if resultado.valido %}
+        <div class="alert alert-success"><i class="fas fa-check-circle"></i>La ruta incluye una ciudad costera.</div>
+      {% else %}
+        <div class="alert alert-danger"><i class="fas fa-times-circle"></i> La ruta NO incluye ninguna ciudad costera.</div>
+      {% endif %}
+    {% else %}
+      <div class="alert alert-warning">No existe ruta de Ibarra a Loja.</div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
