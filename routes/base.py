@@ -51,5 +51,5 @@ def ruta_nueva():
 
 @ruta_predeterminada_bp.route('/caminop')
 def caminop():
-    resultado = camino_optimo_con_costera()
+    resultado = camino_optimo_con_costera(aristas=obtener_rutas())
     return render_template('caminop.html', resultado = resultado)
